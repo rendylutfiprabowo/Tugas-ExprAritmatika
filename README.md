@@ -9,7 +9,7 @@ Rendy Lutfi Prabowo(2017051053)
 using namespace std;
   
   int main(){
-  int a,b;
+  int a,b,c;
 }
   return 0;
 
