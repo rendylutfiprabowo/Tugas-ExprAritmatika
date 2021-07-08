@@ -1,7 +1,6 @@
  else if (operand[x] == '-' && operand[x+1] >= '0'){
   cout << operand[x];
    }
-
  else if (operand[x-1] >= '0' && operand[x] == '-' ){
    cout << " " << operand[x] << " ";
     }
