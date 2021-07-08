@@ -1,3 +1,20 @@
 //Regita Rose Prameswari (2017051017)
 //Muhammad Fakhri (2017051076)
 //Rendy Lutfi Prabowo(2017051053)
+
+int main(){
+    string ekspresi; getline(cin,ekspresi);
+    string new_ekspresi="";
+    for(i=0;i<ekspresi.length();i++){
+        if(ekspresi[i]==' '){
+            continue;
+        
+        }
+        else{
+            new_ekspresi+=ekspresi[i];    
+        }        
+    }
+    cout << convert(new_ekspresi);
+    
+    return 0;
+}
