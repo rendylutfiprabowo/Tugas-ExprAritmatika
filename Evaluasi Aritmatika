@@ -1,3 +1,77 @@
 //Regita Rose Prameswari (2017051017)
 //Muhammad Fakhri (2017051076)
 //Rendy Lutfi Prabowo(2017051053)
+
+else if(masukan[i] == '(')
+			operasi.push(masukan[i]);
+		else if(masukan[i] == ')'){
+			while(!operasi.empty() && operasi.top() != '('){
+				if(operasi.top() == '%'){
+					int value2 = data.top(); data.pop();
+                    int value1 = data.top(); data.pop();
+                    operasi.pop();
+                    data.push(value1%value2);
+				} else {
+					double value2 = data.top(); data.pop();
+                    double value1 = data.top(); data.pop();
+                    char op = operasi.top(); operasi.pop();
+                    data.push(applyOp(value1, value2, op));
+				}
+			}
+			if(!operasi.empty())
+				operasi.pop();
+		} else {
+			if(masukan[i] == '-'){
+				if(i==0){
+					if(isdigit(masukan[i+1])){
+						i++;
+						int value=0;
+						while(i<masukan.length() && isdigit(masukan[i])){
+							value = (value*10) + (masukan[i] - '0');
+							i++;
+						}
+						i--;
+						data.push(value*-1);
+					} else {
+						data.push(-1);
+						operasi.push('*');
+					}
+				} else {
+					while(!operasi.empty() && precedence(operasi.top()) >= precedence(masukan[i]) && !isOp(masukan[i-1])){
+						if(operasi.top() == '%'){
+							int value2 = data.top(); data.pop();
+		                    int value1 = data.top(); data.pop();
+		                    operasi.pop();
+		                    data.push(value1%value2);
+						} else {
+							double value2 = data.top(); data.pop();
+		                    double value1 = data.top(); data.pop();
+		                    char op = operasi.top(); operasi.pop();
+		                    data.push(applyOp(value1, value2, op));
+						}
+					}
+					if((isdigit(masukan[i+1]) || masukan[i+1]=='(') && (isdigit(masukan[i-1]) || masukan[i-1]==')'))
+						operasi.push(masukan[i]);
+					else{
+						data.push(-1);
+						operasi.push('*');
+					}
+				} 
+			} else {
+				while(!operasi.empty() && precedence(operasi.top()) >= precedence(masukan[i])){
+					if(operasi.top() == '%'){
+						int value2 = data.top(); data.pop();
+		                int value1 = data.top(); data.pop();
+		                operasi.pop();
+		                data.push(value1%value2);
+					} else {
+						double value2 = data.top(); data.pop();
+		                double value1 = data.top(); data.pop();
+		                char op = operasi.top(); operasi.pop();
+		                data.push(applyOp(value1, value2, op));
+					}
+				}
+				operasi.push(masukan[i]);
+			}
+		}
+	}
