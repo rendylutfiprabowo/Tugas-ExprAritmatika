@@ -2,7 +2,27 @@
 //Muhammad Fakhri (2017051076)
 //Rendy Lutfi Prabowo(2017051053)
 
-    for(i=0; i<masukan.length(); i++){
+#include <iostream>
+#include <ctype.h>
+#include <stack>
+using namespace std;
+long unsigned int i;
+
+bool isOp(char a){
+    if(a=='+'||a=='-'||a=='*'||a=='/'||a=='%')
+        return true;
+    return false;
+}
+int ukuran(char a){
+    if(a=='+'||a=='-') return 1;
+    if(a=='*'||a=='/'||a=='%') return 2;
+    return 0;
+}
+string convert(string masukan){
+    stack<char> data;
+    string postfix="";
+
+ for(i=0; i<masukan.length(); i++){
         if(isdigit(masukan[i])){
             while(i<masukan.length() && isdigit(masukan[i])){
                 postfix += masukan[i];
