@@ -2,6 +2,93 @@
 //Muhammad Fakhri (2017051076)
 //Rendy Lutfi Prabowo(2017051053)
 
+#include <iostream>
+#include <ctype.h>
+#include <stack>
+using namespace std;
+long unsigned int i;
+
+bool isOp(char a){
+    if(a=='+'||a=='-'||a=='*'||a=='/'||a=='%')
+        return true;
+    return false;
+}
+int ukuran(char a){
+    if(a=='+'||a=='-') return 1;
+    if(a=='*'||a=='/'||a=='%') return 2;
+    return 0;
+}
+string convert(string masukan){
+    stack<char> data;
+    string postfix="";
+
+ for(i=0; i<masukan.length(); i++){
+        if(isdigit(masukan[i])){
+            while(i<masukan.length() && isdigit(masukan[i])){
+                postfix += masukan[i];
+                i++;
+            }
+            i--;
+            postfix += " ";
+        }
+        else if(masukan[i] == '(')
+            data.push(masukan[i]);
+            
+        else if(masukan[i] == ')'){
+            while(!data.empty() && data.top() != '('){
+                postfix += data.top();
+                postfix += " ";
+                data.pop();
+            }
+            data.pop();
+        } else {
+            if(masukan[i] == '-'){
+                if(i==0){
+                    if(isdigit(masukan[i+1])){
+                        postfix += masukan[i];
+                        i++;
+                        while(i<masukan.length() && isdigit(masukan[i])){
+                            postfix += masukan[i];
+                            i++;
+                        }
+                        i--;
+                        postfix += " ";
+                    }
+                    else{
+                        postfix += "-1 ";
+                        data.push('*');
+                    }
+                } else {
+                    while(!data.empty() && ukuran(data.top()) >= ukuran(masukan[i]) && !isOp(masukan[i-1])){
+                        postfix += data.top();
+                        postfix += " ";
+                        data.pop();
+                    }
+                    if((isdigit(masukan[i+1]) || masukan[i+1]=='(') && (isdigit(masukan[i-1]) || masukan[i-1]==')'))
+                        data.push(masukan[i]);
+                    else {
+                        postfix += "-1 ";
+                        data.push('*');
+                    }
+                }
+            } else {
+                while(!data.empty() && ukuran(data.top()) >= ukuran(masukan[i])){
+                    postfix += data.top();
+                    postfix += " ";
+                    data.pop();
+                }
+                data.push(masukan[i]);
+            }
+        }
+    }
+    while(!data.empty()){
+        postfix += data.top();
+        postfix += " ";
+        data.pop();
+    }
+    return postfix;
+}
+
 int main(){
     string ekspresi; getline(cin,ekspresi);
     string new_ekspresi="";
@@ -17,4 +104,4 @@ int main(){
     cout << convert(new_ekspresi);
     
     return 0;
-}
+    }
