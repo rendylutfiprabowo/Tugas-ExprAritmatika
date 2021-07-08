@@ -1,3 +1,4 @@
+
 //Regita Rose Prameswari (2017051017)
 //Muhammad Fakhri (2017051076)
 //Rendy Lutfi Prabowo(2017051053)
@@ -7,3 +8,18 @@
 #include <vector>
 #include <iostream>
 #include <algorithm>
+
+using namespace std;
+
+int main() {
+    cout<<"Print : ";
+    string operand;
+    getline(cin,operand);    
+    int N =  operand.length();
+    for(int x = 0; x < N ; x++){
+        if(operand[x] == '-' && (operand[x-1] == '+' || operand[x-1] == '-' ||operand[x-1] == '*' || operand[x-1] == '/'|| operand[x-1] == '%' )){
+            cout << "-1 * ";
+        }
+        else if (operand[x] == '-' && (operand[x-1] >= '0'|| operand[x-2] >= '0')){
+            cout << " " << operand[x] << " ";
+        } 
