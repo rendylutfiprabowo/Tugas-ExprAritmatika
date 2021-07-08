@@ -1,3 +1,23 @@
 //Regita Rose Prameswari (2017051017)
 //Muhammad Fakhri (2017051076)
 //Rendy Lutfi Prabowo(2017051053)
+
+#include <iostream>
+#include <ctype.h>
+#include <stack>
+using namespace std;
+long unsigned int i;
+
+bool isOp(char a){
+    if(a=='+'||a=='-'||a=='*'||a=='/'||a=='%')
+        return true;
+    return false;
+}
+int ukuran(char a){
+    if(a=='+'||a=='-') return 1;
+    if(a=='*'||a=='/'||a=='%') return 2;
+    return 0;
+}
+string convert(string masukan){
+    stack<char> data;
+    string postfix="";
